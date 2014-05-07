@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
 gem 'rspec'
 gem 'capybara'
-gem 'selenium-webdriver', '~> 2.20.0'
+gem 'selenium-webdriver', '~> 2.31.0'
 gem 'json', '~> 1.7.7'

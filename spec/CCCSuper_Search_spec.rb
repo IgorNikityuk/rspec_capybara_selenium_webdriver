@@ -1,7 +1,7 @@
 require 'spec_helper'
 describe "CCCSuper_Search" do
   it "Verify super search function", :js => true do
-    visit Capybara.default_host
+    visit 'http://staging.limos.com'
     find_link('Sign In').click
     fill_in 'email', :with => 'joyce2@limos.com'
     fill_in 'password', :with => 'password'

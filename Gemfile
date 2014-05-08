@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 gem 'rspec'
 gem 'capybara'
-gem 'selenium-webdriver', '~> 2.33.0'
+gem 'selenium-webdriver', '~> 2.34.0'
 gem 'json', '~> 1.7.7'
 gem 'capybara-webkit'

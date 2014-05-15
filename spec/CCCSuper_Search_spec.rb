@@ -1,11 +1,11 @@
 require 'spec_helper'
+
 describe "CCCSuper_Search" do
   it "Verify super search function", :js => true do
-    visit 'http://staging.limos.com'
-    find_link('Sign In').click
-    fill_in 'email', :with => 'joyce2@limos.com'
-    fill_in 'password', :with => 'password'
-    find_button('Sign-in').click
+    visit Capybara.default_host
+    #login as joyce2@limos.com
+    login_page = LoginPage.new
+    login_page.login_as('joyce2@limos.com', 'password')
     find_link('Manage Customers').click
     fill_in 'email', :with => 'baba@aol.com'
     find('#btn_find').click
@@ -26,9 +26,8 @@ describe "CCCSuper_Search" do
       sleep(1)
     end
     page.should have_text('Reservation Confirmation')
+    page.should_not have_text('Alert')
     page.assert_selector('#self_service_change_button')
     page.assert_selector('#self_service_cancel_button')
-
   end
-  
 end

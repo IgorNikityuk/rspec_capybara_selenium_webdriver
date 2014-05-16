@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Administration_HourlyRideReservation_Canada3DigZip" do
   it "Verify administration hourly ride reservation", :js => true do
-    visit Capybara.default_host
+    visit Capybara.default_host + '/logout'
     #login as joyce2@limos.com
     login_page = LoginPage.new
     login_page.login_as('joyce2@limos.com', 'password')

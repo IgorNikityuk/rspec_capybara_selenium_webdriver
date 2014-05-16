@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe "BizModifySearchSavedCardCheckoutLogin" do
   it "BizModifySearchSavedCardCheckoutLogin", :js => true do
-    visit 'http://staging.limos.com/logout'
+    visit Capybara.default_host + '/logout'
     #login as joyce2@limos.com
     login_page = LoginPage.new
     login_page.login_as('flagco@guy.com', 'monkey123')

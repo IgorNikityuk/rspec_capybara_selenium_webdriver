@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "CreatePromCDEmailUncheckRollup" do
   it "CreatePromCDEmailUncheckRollup", :js => true do
-    visit 'http://staging.limos.com/logout'
+    visit Capybara.default_host + '/logout'
     select('Prom / School Event', :from => 'service_type')
     select('8', :from => 'search_pax')
     search = GenericSearch.new

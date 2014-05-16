@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe "Contact-infoPage" do
   it "Verify search function like admin", :js => true do
-    visit 'http://staging.limos.com/logout'
+    visit Capybara.default_host + '/logout'
     select('Wedding', :from => 'service_type')
     select('4', :from => 'search_pax')
     find('#search_ride_date').click

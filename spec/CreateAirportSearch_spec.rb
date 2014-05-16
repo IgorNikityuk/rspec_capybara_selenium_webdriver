@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "CreateAirportSearch" do
   it "CreateAirportSearch", :js => true do
-    visit 'http://staging.limos.com/logout'
+    visit Capybara.default_host + '/logout'
     select('To Airport', :from => 'service_type')
     select('2', :from => 'search_pax')
     find('#search_ride_date').click

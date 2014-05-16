@@ -5,6 +5,8 @@ require 'selenium-webdriver'
 
 #require files
 require 'support/login_page.rb'
+require 'support/generic_search.rb'
+require 'support/checkout_page.rb'
 
 #Dir["support/*.rb"].each {|file| require file}
 

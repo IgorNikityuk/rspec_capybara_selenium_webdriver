@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe "CreatePromCDEmailUncheckRollup" do
   it "CreatePromCDEmailUncheckRollup", :js => true do
-    visit Capybara.default_host + '/logout'
+    current_page = SearchPage.new
+    current_page.open_logout
+
     select('Prom / School Event', :from => 'service_type')
     select('8', :from => 'search_pax')
     search = GenericSearch.new
@@ -13,9 +15,7 @@ describe "CreatePromCDEmailUncheckRollup" do
     select(':45', :from => 'search_drop_off_time_minute')
     fill_in 'search_pickup_place', :with => '761 Rollins Road #2 burlingame ca'
     find_button('Get a quote').click
-    while (page.has_link?('Select') == false)
-      sleep(1)
-    end  
+    
     fill_in 'passenger_first_name', :with => 'selenium'
     fill_in 'passenger_last_name', :with => 'prom'
     fill_in 'passenger_email', :with => 'igor.nikityuk@gmail.com'
@@ -23,7 +23,10 @@ describe "CreatePromCDEmailUncheckRollup" do
     #add verify title
     page.should_not have_xpath("//span[@class='operator-phone']")
     page.should_not have_xpath("//span[@class='operator-email']")
-    first(:link, 'Select').click
+    
+    current_page = SearchResultPage.new
+    current_page.select_car
+    
     select('selenium prom', :from => 'passenger_list')
     find('#reservation_request_dropoff_same_as_pickup').click
     fill_in 'dropoff_address_street1', :with => '14 state st'
@@ -49,9 +52,12 @@ describe "CreatePromCDEmailUncheckRollup" do
     page.should have_text('Amount due now:')
     fill_in 'passenger_phone_num', :with => '123-233-4324'
     find('#reservation_request_submit').click
-    while (page.has_css?('.centered.horiz>img') == true)
-      sleep(1)
-    end
+    
+    current_page = CheckoutPage.new
+    current_page.reserve_car
+
+    current_page = ReservationConfirmationPage.new
+
     page.should have_text('igor.nikityuk@gmail.com')
     page.should have_text('from 11:15PM to 06:45AM (7.5 hours) for 8 people')
     page.should_not have_xpath('//div[1]/a/span')

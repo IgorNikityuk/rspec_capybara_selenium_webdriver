@@ -1,14 +1,19 @@
 require 'spec_helper'
 
 describe "CCCSuper_Search" do
-  it "Verify super search function", :js => true do
-    visit Capybara.default_host + '/logout'
-    #login as joyce2@limos.com
-    login_page = LoginPage.new
-    login_page.login_as('joyce2@limos.com', 'password')
-    find_link('Manage Customers').click
-    fill_in 'email', :with => 'baba@aol.com'
-    find('#btn_find').click
+  it "CCCSuper_Search", :js => true do
+    current_page = SearchPage.new
+    current_page.open_logout
+
+    current_page = LoginPage.new
+    current_page.sign_in_as('joyce2@limos.com', 'password')
+
+    current_page = AdminPage.new
+    current_page.choose_category('Manage Customers')
+
+    current_page = AdminMakeReservationPage.new
+    current_page.find_customers_by({:email => 'baba@aol.com'})
+
     select('Hourly-As-Directed', :from => 'service_type')
     fill_in 'time_pickup', :with => '10:00pm'
     fill_in 'time_dropoff', :with => '11:00pm'
@@ -19,13 +24,19 @@ describe "CCCSuper_Search" do
     find_button('See Prices').click
     find_link('Super Search').click
     page.should have_text('Oops! Something went wrong!')
-    first(:link, 'Select').click
+    
+    current_page = SearchResultPage.new
+    current_page.select_car
+    
+    current_page = CheckoutPage.new
+
     select('Leo Pekker', :from => 'passengers_list')
     fill_in 'pickup_address_street1', :with => '123 test st'
-    find_button('Reserve').click
-    while (page.has_css?('.centered.horiz>img') == true)
-      sleep(1)
-    end
+    
+    current_page.reserve_car
+    
+    current_page = ReservationConfirmationPage.new
+
     page.should have_text('Reservation Confirmation')
     page.should_not have_text('Alert')
     page.should have_text('1710 Union St, San Francisco, CA')

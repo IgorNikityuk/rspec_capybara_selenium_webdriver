@@ -12,9 +12,7 @@ describe "DataPickerOperator" do
     fill_in 'search_pickup_place', :with => 'MIA'
     fill_in 'search_drop_off_place', :with => '4 Grove Isle Drive, miami, fl'
     find_button('Find a ride').click
-    while (page.has_link?('Select') == false)
-      sleep(1)
-    end
+
     page.should_not have_text('Please provide all information below')
 
   end

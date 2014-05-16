@@ -3,8 +3,11 @@
 require 'spec_helper'
 
 describe "Contact-infoPage" do
-  it "Verify search function like admin", :js => true do
-    visit Capybara.default_host + '/logout'
+  it "Contact-infoPage", :js => true do
+    
+    current_page = SearchPage.new
+    current_page.open_logout
+
     select('Wedding', :from => 'service_type')
     select('4', :from => 'search_pax')
     find('#search_ride_date').click
@@ -36,10 +39,10 @@ describe "Contact-infoPage" do
     fill_in 'passenger_last_name', :with => 'Lymar'
     fill_in 'passenger_email', :with => 'igor.nikityuk@gmail.com'
     find('#user_passenger_info_submit').click
-    while (page.has_link?('Select') == false)
-      sleep(1)
-    end
-    first(:link, 'Select').click
+    
+    current_page = SearchResultPage.new
+    current_page.select_car
+
     page.should have_css('h2')
   end
   

@@ -1,10 +1,11 @@
 require 'spec_helper'
+require 'support/generic_search.rb'
 
-class LoginPage
-  include Capybara::DSL	
-  
+class LoginPage < GenericSearch
+  include Capybara::DSL
+
   #function for login on site
-	def login_as (email, password)
+	def sign_in_as (email, password)
       find_link('Sign In').click
       fill_in 'email', :with => email
       fill_in 'password', :with => password

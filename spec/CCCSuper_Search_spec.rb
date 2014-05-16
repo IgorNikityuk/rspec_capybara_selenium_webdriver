@@ -18,6 +18,7 @@ describe "CCCSuper_Search" do
     find('#calcurrent').click
     find_button('See Prices').click
     find_link('Super Search').click
+    page.should have_text('Oops! Something went wrong!')
     first(:link, 'Select').click
     select('Leo Pekker', :from => 'passengers_list')
     fill_in 'pickup_address_street1', :with => '123 test st'
@@ -27,6 +28,7 @@ describe "CCCSuper_Search" do
     end
     page.should have_text('Reservation Confirmation')
     page.should_not have_text('Alert')
+    page.should have_text('1710 Union St, San Francisco, CA')
     page.assert_selector('#self_service_change_button')
     page.assert_selector('#self_service_cancel_button')
   end

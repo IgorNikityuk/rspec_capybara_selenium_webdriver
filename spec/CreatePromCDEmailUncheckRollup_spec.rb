@@ -12,12 +12,15 @@ describe "CreatePromCDEmailUncheckRollup" do
     select('6 AM', :from => 'search_drop_off_time_hour')
     select(':45', :from => 'search_drop_off_time_minute')
     fill_in 'search_pickup_place', :with => '761 Rollins Road #2 burlingame ca'
-    find_button('Get a quote').click    
-    
+    find_button('Get a quote').click
+    while (page.has_link?('Select') == false)
+      sleep(1)
+    end  
     fill_in 'passenger_first_name', :with => 'selenium'
     fill_in 'passenger_last_name', :with => 'prom'
     fill_in 'passenger_email', :with => 'igor.nikityuk@gmail.com'
     find('#user_passenger_info_submit').click
+    #add verify title
     page.should_not have_xpath("//span[@class='operator-phone']")
     page.should_not have_xpath("//span[@class='operator-email']")
     first(:link, 'Select').click

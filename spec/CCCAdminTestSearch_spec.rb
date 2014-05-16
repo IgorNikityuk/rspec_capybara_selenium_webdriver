@@ -19,13 +19,11 @@ describe "CCCAdminTestSearch" do
     fill_in 'search_drop_off_place', :with => 'SEA'
     find_button('Get a quote').click
     #select a car
+    while (page.has_link?('Select') == false)
+      sleep(1)
+    end
     first(:link, 'Select').click
-    #page.should have_css('#passenger_phone_num')
-    #add verify wait for title
-    #expect(page).to have_title "my_title"
-    #page.title
-    #page.has_title? "my title"
-    #page.has_no_title? "my not found title"
+    #add verify title
   end
   
 end

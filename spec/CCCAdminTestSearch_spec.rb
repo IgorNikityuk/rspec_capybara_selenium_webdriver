@@ -23,8 +23,7 @@ describe "CCCAdminTestSearch" do
       sleep(1)
     end
     first(:link, 'Select').click
-    #add verify title
-    page.should have_xpath("//title[contains(text(),'Limo & Car Services, Party Bus Rentals and more | Limos.com')]")
+    #page.should have_xpath("//title[contains(text(),'Limo & Car Services, Party Bus Rentals and more | Limos.com')]")
   end
   
 end

@@ -21,4 +21,4 @@ end
 
 Capybara.default_driver = :selenium
 Capybara.default_host = 'http://staging.limos.com/'
-Capybara.default_wait_time = 45
+Capybara.default_wait_time = 30

@@ -21,8 +21,8 @@ describe "CCCAdminTestSearch" do
 
     current_page = SearchResultPage.new
     current_page.select_car
-
-    #page.should have_xpath("//title[contains(text(),'Limo & Car Services, Party Bus Rentals and more | Limos.com')]")
+    
+    expect(page).to have_title "Limo & Car Services, Party Bus Rentals and more | Limos.com"
   end
   
 end

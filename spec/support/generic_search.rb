@@ -3,14 +3,12 @@ require 'spec_helper'
 class GenericSearch
   include Capybara::DSL
 
-  def wait_for_ajax(timeout = Capybara.default_wait_time)
-    wait_until { page.evaluate_script('$.active') == 0 }
-  end
-
-  def wait_until
+  def wait_for_ajax
     Timeout.timeout(Capybara.default_wait_time) do
-      sleep(0.1) until value = yield
-      value
+      loop do
+        active = page.evaluate_script('jQuery.active')
+        break if active == 0
+      end
     end
   end
 

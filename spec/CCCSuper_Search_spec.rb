@@ -23,7 +23,7 @@ describe "CCCSuper_Search" do
     find('#calcurrent').click
     find_button('See Prices').click
     find_link('Super Search').click
-    page.should have_text('Oops! Something went wrong!')
+    page.should_not have_text('Oops! Something went wrong!')
     
     current_page = SearchResultPage.new
     current_page.select_car

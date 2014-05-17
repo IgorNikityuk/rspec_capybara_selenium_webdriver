@@ -14,7 +14,7 @@ describe "Contact-infoPage" do
     find('#calcurrent').click
     select('11 PM', :from => 'search_pickup_time_hour')
     select(':15', :from => 'search_pickup_time_minute')
-    fill_in 'search_pickup_place', :with => '6083 McKay Ave, Burnaby, BC V5H 2W7, Canada'
+    fill_in 'search_pickup_place', :with => '1070 SAN FRANCISCO, Union Street, San Francisco, CA, United States'
     find_button('Get a quote').click
     expect(page).to have_link('Sign in to proceed.')
     page.should have_css('#passenger_first_name')

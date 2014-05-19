@@ -11,8 +11,8 @@ describe "CCCAdminTestSearch" do
     find_link('Admin Test').click
     select('To Airport', :from => 'service_type')
     select('2', :from => 'search_pax')
-    find(:css, '#search_ride_date').click
-    find(:css, '#calcurrent').click
+    search = GenericSearch.new
+    search.click_next_date
     select('11 PM', :from => 'search_pickup_time_hour')
     select(':45', :from => 'search_pickup_time_minute')
     fill_in 'search_pickup_place', :with => '4333 University Way Northeast, Seattle'
@@ -20,6 +20,7 @@ describe "CCCAdminTestSearch" do
     find_button('Get a quote').click
 
     current_page = SearchResultPage.new
+    current_page.wait_for_page_load
     current_page.select_car
     
     expect(page).to have_title "Limo & Car Services, Party Bus Rentals and more | Limos.com"

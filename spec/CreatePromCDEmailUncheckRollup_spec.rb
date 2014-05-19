@@ -25,6 +25,7 @@ describe "CreatePromCDEmailUncheckRollup" do
     page.should_not have_xpath("//span[@class='operator-email']")
     
     current_page = SearchResultPage.new
+    current_page.wait_for_page_load
     current_page.select_car
     
     select('selenium prom', :from => 'passenger_list')

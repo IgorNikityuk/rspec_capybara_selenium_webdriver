@@ -14,16 +14,16 @@ describe "BizModifySearchSavedCardCheckoutLogin" do
     page.should have_link('My Account')
     select('From Airport', :from => 'service_type')
     select('2', :from => 'search_pax')
-    find('#search_ride_date').click
-    find('#calcurrent').click
+    search = GenericSearch.new
+    search.click_next_date
     select('11 PM', :from => 'search_pickup_time_hour')
     fill_in 'search_pickup_place', :with => 'SFO-FBO'
     fill_in 'search_drop_off_place', :with => '1 Embarcadero Center, San Francisco, CA 94111'
     find_button('Get a quote').click
     
     current_page = SearchResultPage.new
+    current_page.wait_for_page_load
     
-    find_button('Modify Search').should be_visible
     page.should_not have_text("The ride you’ve selected is during a time of high-demand")
     #first('span.luggage_capacity').text.should == '3 bags'
     #find('p').text.should == 'exact:Service: 2 passenger, From Airport'
@@ -38,7 +38,6 @@ describe "BizModifySearchSavedCardCheckoutLogin" do
 
     select('Just Drive (hourly)', :from => 'service_type')
     select('2', :from => 'search_pax')
-    search = GenericSearch.new
     search.click_next_date
     select('11 PM', :from => 'search_pickup_time_hour')
     fill_in 'search_pickup_place', :with => '1 Embarcadero Center, San Francisco, CA'
@@ -52,32 +51,20 @@ describe "BizModifySearchSavedCardCheckoutLogin" do
     
     page.should_not have_text('The ride you’ve selected is during a time of high-demand')
     
-    current_page.select_car
-    
-    find_button('Reserve').value.should == 'Reserve'
+    current_page.select_car    
 
     current_page = CheckoutPage.new
+    find_button('Reserve').value.should == 'Reserve'
+    current_page.fill_cc
 
-    find(:css, '#card_payment_method_saved_id_0').click
-    fill_in 'card_payment_method_card_number', :with => '5200000000000007'
-    fill_in 'card_payment_method_cvv', :with => '123'
-    select('12', :from => 'card_payment_method_expiration_month')
-    select('2015', :from => 'card_payment_method_expiration_year')
-    fill_in 'card_payment_method_first_name', :with => 'Joe'
-    fill_in 'card_payment_method_last_name', :with => 'George'
-    fill_in 'address_street1', :with => '123 Street'
-    select('Switzerland', :from => 'address_country')
-    fill_in 'address_city', :with => 'zurich'
-    fill_in 'address_state_province', :with => 'Arkansas'
-    fill_in 'address_postal_code', :with => '55555'
     fill_in 'entered_promo_code', :with => 'MTSINAI10'
-    find('#entered_promo_code').click
-    find_button('Apply Discount').click
+    find('#promo_code_button').click
     #find('label.infoMessage').text.should == '$30 discount applied'
     page.should_not have_text('Invalid account #')
 
     current_page.reserve_car
 
+    page.should have_text('Reservation Request')
     page.should_not have_text("The ride you’ve selected is during a high-demand service time. In times of high-demand service, the price and availability is subject to change and not guaranteed until confirmed by the provider.")
     page.should_not have_text("Oops! Something went wrong!")
     page.should_not have_text("Once the ride is confirmed by the provider, you will receive an email containing your confirmation. If the ride is not confirmed by the provider, your deposit will be refunded and there will be no further charges to your credit card.")

@@ -20,28 +20,26 @@ describe "Administration_OneWayRideReservation_CanadaZip" do
     fill_in 'search_pickup_place', :with => '6083 McKay Ave, Burnaby, BC V5H 2W7, Canada'
     fill_in 'search_drop_off_place', :with => '7060 Kingsway,Burnaby, BC V5E 1E5, Canada'
     select('4', :from => 'search_pax')
-    find('#search_ride_date').click
-    find('#calcurrent').click
+    search = GenericSearch.new
+    search.click_next_date
     find_button('See Prices').click
 
     current_page = SearchResultPage.new
-    find_button('Modify Search').should be_visible
+    current_page.wait_for_page_load
     current_page.select_car
 
+    current_page = CheckoutPage.new
+    current_page.verify_user_details
+
     select('Leo Pekker', :from => 'passengers_list')
-    page.should have_text('Acct Type:  Business')
-    page.should have_text('First name: Leo')
-    page.should have_text('Last name: Pekker')
-    page.should have_link('Enter Account')
     rideDate = first(:xpath, "//*[@id='edit_reservation_request']/fieldset[2]//h4").text
     
     current_page = CheckoutPage.new
     current_page.reserve_car
 
     current_page = ReservationConfirmationPage.new
+    current_page.verify_reservation_passed
 
-    page.should have_text('Reservation Confirmation')
-    page.assert_selector('#self_service_cancel_button')
     find('#your-trip').text.should == rideDate
   end
   

@@ -16,12 +16,8 @@ describe "Contact-infoPage" do
     select(':15', :from => 'search_pickup_time_minute')
     fill_in 'search_pickup_place', :with => '1070 SAN FRANCISCO, Union Street, San Francisco, CA, United States'
     find_button('Get a quote').click
+
     expect(page).to have_link('Sign in to proceed.')
-    page.should have_css('#passenger_first_name')
-    page.should have_css('#passenger_last_name')
-    page.should have_css('#passenger_email')
-    page.should have_css('#passenger_phone_num')
-    page.should have_css('#user_passenger_info_submit')
     page.should have_css('h3')
     page.should have_link('Modify Search')
     find('#user_passenger_info_submit').click
@@ -41,6 +37,7 @@ describe "Contact-infoPage" do
     find('#user_passenger_info_submit').click
     
     current_page = SearchResultPage.new
+    current_page.wait_for_page_load
     current_page.select_car
 
     page.should have_css('h2')

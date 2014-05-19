@@ -9,6 +9,7 @@ GEM
       xpath (~> 2.0)
     childprocess (0.5.3)
       ffi (~> 1.0, >= 1.0.11)
+    database_cleaner (1.2.0)
     diff-lcs (1.2.4)
     ffi (1.9.3)
     json (1.7.7)
@@ -41,6 +42,7 @@ PLATFORMS
 
 DEPENDENCIES
   capybara
+  database_cleaner
   json (~> 1.7.7)
   rspec
   selenium-webdriver (~> 2.39.0)

@@ -12,11 +12,20 @@ require 'support/pages/search_page.rb'
 require 'support/pages/search_result_page.rb'
 require 'support/pages/checkout_page.rb'
 require 'support/pages/reservation_confirmation_page.rb'
+require 'support/deferred_garbage_collection.rb'
+
 
 #Dir["support/*.rb"].each {|file| require file}
 
 RSpec.configure do |config|
   config.include Capybara::DSL
+  config.before(:all) do
+    DeferredGarbageCollection.start
+  end
+
+  config.after(:all) do
+    DeferredGarbageCollection.reconsider
+  end
 end
 
 Capybara.default_driver = :selenium

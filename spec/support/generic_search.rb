@@ -23,4 +23,11 @@ class GenericSearch
     end
 	end
 
+  def verify_user_details
+    find('#info_acct').text.should == 'Acct Type: Business'
+    find('#info_fname').text.should == 'First name: Leo'
+    find('#info_lname').text.should == 'Last name: Pekker'
+    find('#info_enter_acct_link').text.should == 'Enter Account'
+  end
+
 end

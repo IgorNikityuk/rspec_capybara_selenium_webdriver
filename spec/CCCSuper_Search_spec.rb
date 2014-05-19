@@ -26,6 +26,7 @@ describe "CCCSuper_Search" do
     page.should_not have_text('Oops! Something went wrong!')
     
     current_page = SearchResultPage.new
+    current_page.wait_for_page_load
     current_page.select_car
     
     current_page = CheckoutPage.new
@@ -36,11 +37,8 @@ describe "CCCSuper_Search" do
     current_page.reserve_car
     
     current_page = ReservationConfirmationPage.new
-
-    page.should have_text('Reservation Confirmation')
+    current_page.verify_reservation_passed
+    find('#pickup_place').text.should == "123 test st, Sf, CA, 94123"
     page.should_not have_text('Alert')
-    page.should have_text('1710 Union St, San Francisco, CA')
-    page.assert_selector('#self_service_change_button')
-    page.assert_selector('#self_service_cancel_button')
   end
 end

@@ -14,7 +14,7 @@ describe "CreateAirportSearch" do
     fill_in 'search_pickup_place', :with => '94111'
     fill_in 'search_drop_off_place', :with => 'OAK'    
     find_button('Get a quote').click    
-    #find('.ride-number>span').text.should == 'Ride #:'
+    find('.ride-number>span').text.should == 'RIDE #:'
   end
   
 end

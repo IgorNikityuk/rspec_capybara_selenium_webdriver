@@ -14,9 +14,9 @@ class GenericSearch
 
 	def click_next_date
     begin
-    	find('#search_ride_date').click
-      plusOneDay = find('#calcurrent').text.to_i + 1
-      find_link(plusOneDay).click
+      first('#search_ride_date').click
+      randomDate = first('#calcurrent').text.to_i + 1 
+      first(:xpath, "//*[@id='calbody']//a[contains(text(), '" + randomDate.to_s + "')]").click
     rescue
     	find('#calnext').click
       find_link('2').click

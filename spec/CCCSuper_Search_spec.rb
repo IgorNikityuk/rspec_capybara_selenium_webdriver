@@ -19,8 +19,8 @@ describe "CCCSuper_Search" do
     fill_in 'time_dropoff', :with => '11:00pm'
     fill_in 'search_pickup_place', :with => '1710 Union St, San Francisco, CA'
     select('4', :from => 'search_pax')
-    find('#search_ride_date').click
-    find('#calcurrent').click
+    search = GenericSearch.new
+    search.click_next_date
     find_button('See Prices').click
     find_link('Super Search').click
     page.should_not have_text('Oops! Something went wrong!')

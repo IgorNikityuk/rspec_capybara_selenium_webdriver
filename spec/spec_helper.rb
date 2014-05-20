@@ -29,5 +29,5 @@ RSpec.configure do |config|
 end
 
 Capybara.default_driver = :selenium
-Capybara.default_host = 'http://staging.limos.com/'
+Capybara.default_host = 'http://ff2.staging.limos.com/'
 Capybara.default_wait_time = 30

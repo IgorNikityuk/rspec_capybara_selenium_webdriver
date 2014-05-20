@@ -25,12 +25,8 @@ describe "BizCanadaChangePassenger" do
     current_page.select_car
 
     current_page = CheckoutPage.new
-    
-    find_link('Add new passenger').click
-    fill_in 'passenger_first_name', :with => 'Yana'
-    fill_in 'passenger_last_name', :with => 'Lymar'
-    fill_in 'passenger_email', :with => 'joe1@jackson.com'
-    fill_in 'passenger_phone_num', :with => '4085150000'
+    current_page.add_new_passenger
+
     rideNumber = find('.rideNumber').text
     fill_in 'passenger_first_name', :with => 'Test'
     fill_in 'reservation_request_special_requests', :with => 'joe1@jackson.com'

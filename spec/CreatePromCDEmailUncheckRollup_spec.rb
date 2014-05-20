@@ -27,6 +27,8 @@ describe "CreatePromCDEmailUncheckRollup" do
     current_page = SearchResultPage.new
     current_page.wait_for_page_load
     current_page.select_car
+
+    current_page = CheckoutPage.new
     
     select('selenium prom', :from => 'passenger_list')
     find('#reservation_request_dropoff_same_as_pickup').click
@@ -54,7 +56,6 @@ describe "CreatePromCDEmailUncheckRollup" do
     fill_in 'passenger_phone_num', :with => '123-233-4324'
     find('#reservation_request_submit').click
     
-    current_page = CheckoutPage.new
     current_page.reserve_car
 
     current_page = ReservationConfirmationPage.new

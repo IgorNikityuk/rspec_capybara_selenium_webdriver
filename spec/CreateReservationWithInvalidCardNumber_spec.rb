@@ -20,45 +20,36 @@ describe 'CreateReservationWithInvalidCardNumber' do
     current_page.wait_for_page_load
     current_page.select_car
 
-    fill_in 'passenger_first_name', :with => 'selenium'
-    fill_in 'passenger_last_name', :with => 'user'
-    fill_in 'passenger_email', :with => 'temp@bhasin.com'
-    fill_in 'passenger_phone_num', :with => '432-852-3333'
+    current_page = CheckoutPage.new
+    current_page.fill_passenger_details
+
     select 'American Airlines', :from => 'reservation_request_flight_airline'
     fill_in 'reservation_request_flight_number', :with => '1190'    
     find('#ride_pricing_number_of_stops').click
     select '1', :from => 'ride_pricing_number_of_stops'
     find('#ride_pricing_meet_inside').click
     fill_in 'reservation_request_special_requests', :with => 'temp@bhasin.com'
-    fill_in 'card_payment_method_card_number', :with => '40123012301299'
-    fill_in 'card_payment_method_cvv', :with => '123'
-    select '12', :from => 'card_payment_method_expiration_month'
-    select '2014', :from => 'card_payment_method_expiration_year'
-    fill_in 'card_payment_method_first_name', :with => 'Joe'
-    fill_in 'card_payment_method_last_name', :with => 'George'
-    fill_in 'address_street1', :with => '123 Street'
-    fill_in 'address_city', :with => 'SanRamon'
-    select 'Iowa', :from => 'select_state_province'
-    fill_in 'address_postal_code', :with => '55555'
+    
+    current_page.fill_cc_with_invalid_data
+
     page.should have_text('at 11:15PM for 3 people')
     page.should_not have_text('Amount Due Now:')
-
-    current_page = CheckoutPage.new
+    
     current_page.reserve_car
 
     page.should have_text('There was an error processing your payment - please try a different card.')
 	select 'selenium user', :from => 'passenger_list'
-	fill_in 'card_payment_method_card_number', :with => '5167138311657643'
-    fill_in 'card_payment_method_cvv', :with => '123'
-    select 'Iowa', :from => 'select_state_province'
-    fill_in 'address_postal_code', :with => '55555'
-    select '12', :from => 'card_payment_method_expiration_month'
-    select '2014', :from => 'card_payment_method_expiration_year'
+    
+    current_page.fill_cc
+
     fill_in 'passenger_phone_num', :with => '503.282.0553'
 
     current_page = CheckoutPage.new
     current_page.reserve_car
 
+    current_page = ReservationConfirmationPage.new
+    current_page.verify_reservation_passed
+    
     page.should have_text('temp@bhasin.com')
     page.should_not have_xpath('//div[1]/a/span')
   end

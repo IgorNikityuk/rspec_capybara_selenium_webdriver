@@ -31,7 +31,7 @@ class GenericSearch
   end
 
   def random_number
-    rnad 100000000
+    rand 100000000
   end
 
 end

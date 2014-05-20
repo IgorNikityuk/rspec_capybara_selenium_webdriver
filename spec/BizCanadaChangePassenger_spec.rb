@@ -26,11 +26,10 @@ describe "BizCanadaChangePassenger" do
 
     current_page = CheckoutPage.new
     current_page.add_new_passenger
+    current_page.fill_passenger_details
 
     rideNumber = find('.rideNumber').text
-    fill_in 'passenger_first_name', :with => 'Test'
-    fill_in 'reservation_request_special_requests', :with => 'joe1@jackson.com'
-    fill_in 'passenger_last_name', :with => 'LastName'
+    
     find('#reservation_request_dropoff_same_as_pickup').click
     fill_in 'dropoff_address_street1', :with => '123 main'
     fill_in 'dropoff_address_city', :with => 'toronto'

@@ -14,7 +14,6 @@ describe "BizPoint_to_pointTrip" do
     search = GenericSearch.new
     search.click_next_date
     check 'is_business'
-    #find('#is_busines').set(true)
     find_button('Get a quote').click
     page.should_not have_xpath("//span[@class='out_of_policy_hover tiptip']")
 
@@ -22,20 +21,18 @@ describe "BizPoint_to_pointTrip" do
     current_page.wait_for_page_load
     current_page.select_car
 
-    fill_in 'passenger_first_name', :with => 'diff22'
-    fill_in 'passenger_last_name', :with => 'passenger'
-    fill_in 'passenger_email', :with => 'temp@bhasin.com'
-    fill_in 'passenger_phone_num', :with => '234-234-2344'
-    rideNumber = find(".rideNumber").text
-
     current_page = CheckoutPage.new
+    current_page.fill_passenger_details
+
+    email = find('#passenger_email').text
+
     current_page.fill_cc
     #find('#reservation_request_dropoff_same_as_pickup').click
     current_page.reserve_car
 
     current_page = ReservationConfirmationPage.new
     current_page.verify_reservation_passed
-    page.should have_text('temp@bhasin.com')
+    page.should have_text(email)
 
   end
 end

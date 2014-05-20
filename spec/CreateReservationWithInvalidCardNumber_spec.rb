@@ -38,8 +38,7 @@ describe 'CreateReservationWithInvalidCardNumber' do
     current_page.reserve_car
 
     page.should have_text('There was an error processing your payment - please try a different card.')
-	select 'selenium user', :from => 'passenger_list'
-    
+  
     current_page.fill_cc
 
     fill_in 'passenger_phone_num', :with => '503.282.0553'

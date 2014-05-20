@@ -62,4 +62,11 @@ class CheckoutPage < GenericSearch
     new_card_checkbox.click if new_card_checkbox
   end
 
+  def enter_promo_code
+    fill_in 'entered_promo_code', :with => 'MTSINAI10'
+    find('#promo_code_button').click
+    find('.infoMessage').text.should == "$30 discount applied"
+    #page.should_not have_css("tr.promo_code_discount > td.left")
+  end
+
 end

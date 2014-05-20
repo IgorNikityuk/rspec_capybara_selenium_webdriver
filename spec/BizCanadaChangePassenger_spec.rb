@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'spec_helper'_promo_code
 
 describe "BizCanadaChangePassenger" do
   it "BizCanadaChangePassenger", :js => true do
@@ -36,12 +36,8 @@ describe "BizCanadaChangePassenger" do
     fill_in 'dropoff_address_city', :with => 'toronto'
     fill_in 'dropoff_address_postal_code', :with => 'MV5 1J9'
     select('This cost will be reimbursed to the Company', :from => 'reservation_request_company_policy_exception_id')
-    fill_in 'entered_promo_code', :with => 'MTSINAI10'
-    find('#promo_code_button').click
-    #page.should have_text("0 discount applied")
-    #page.should_not have_css("tr.promo_code_discount > td.left")
-    
     current_page.fill_cc
+    current_page.enter_promo_code
     current_page.reserve_car
 
     current_page = ReservationConfirmationPage.new

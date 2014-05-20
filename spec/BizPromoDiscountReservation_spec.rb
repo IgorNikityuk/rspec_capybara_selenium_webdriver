@@ -31,12 +31,9 @@ describe "BizPromoDiscountReservation" do
     fill_in 'dropoff_address_street1', :with => '123 main'
     fill_in 'dropoff_address_city', :with => 'SanRamon'
     fill_in 'dropoff_address_postal_code', :with => '94582'
-    fill_in 'entered_promo_code', :with => 'MTSINAI10'
-    find('#promo_code_button').click
-    #page.should have_text("0 discount applied")
-    #page.should_not have_css("tr.promo_code_discount > td.left")
-    
+        
     current_page.fill_cc
+    current_page.enter_promo_code
     current_page.reserve_car
 
     current_page = ReservationConfirmationPage.new

@@ -54,12 +54,12 @@ describe "BizModifySearchSavedCardCheckoutLogin" do
     current_page.select_car    
 
     current_page = CheckoutPage.new
+    
     find_button('Reserve').value.should == 'Reserve'
-    current_page.fill_cc
 
-    fill_in 'entered_promo_code', :with => 'MTSINAI10'
-    find('#promo_code_button').click
-    #find('label.infoMessage').text.should == '$30 discount applied'
+    current_page.fill_cc
+    current_page.enter_promo_code
+
     page.should_not have_text('Invalid account #')
 
     current_page.reserve_car

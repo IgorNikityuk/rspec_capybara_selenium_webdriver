@@ -30,4 +30,8 @@ class GenericSearch
     find('#info_enter_acct_link').text.should == 'Enter Account'
   end
 
+  def random_number
+    rnad 100000000
+  end
+
 end

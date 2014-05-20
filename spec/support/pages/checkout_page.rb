@@ -19,7 +19,7 @@ class CheckoutPage < GenericSearch
   def fill_passenger_details
     fill_in 'passenger_first_name', :with => 'Yana'
     fill_in 'passenger_last_name', :with => 'Lymar'
-    fill_in 'passenger_email', :with => 'joe1@jackson.com'
+    fill_in 'passenger_email', :with => 'joe' + random_number.to_s + '@jackson.com'
     fill_in 'passenger_phone_num', :with => '4085150000'
   end
 

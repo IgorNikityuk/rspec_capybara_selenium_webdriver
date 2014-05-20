@@ -1,4 +1,4 @@
-require 'spec_helper'_promo_code
+require 'spec_helper'
 
 describe "BizCanadaChangePassenger" do
   it "BizCanadaChangePassenger", :js => true do

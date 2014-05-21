@@ -18,7 +18,6 @@ describe "BizCanadaChangePassenger" do
     
     @search_result_page.wait_for_page_load
     @search_result_page.select_car
-    #sleep 200000
     @checkout_page.add_new_passenger
     @checkout_page.fill_passenger_details
 
@@ -35,7 +34,7 @@ describe "BizCanadaChangePassenger" do
     @reservation_confirmation_page.verify_reservation_passed
 
     page.should_not have_xpath('//div[1]/a/span')
-    first('.fieldvalue:nth-of-type(2)').text.should == "This cost will be reimbursed to the Company"
+    first(:xpath, "//*[@class='fieldvalue'][2]").text.should == "This cost will be reimbursed to the Company"
     find('#pickup_place').text.should == "370 King St W, Toronto, ON, M5V 1J9, CA"
     find('#drop_off_place').text.should == '123 main, toronto, ON, MV5 1J9'
     page.should_not have_css("#div.deposit_info")

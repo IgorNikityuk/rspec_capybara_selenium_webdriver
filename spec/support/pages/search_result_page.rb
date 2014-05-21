@@ -9,10 +9,10 @@ class SearchResultPage < GenericSearch
   	end
 
 	def select_car
-	  links_count = page.all(:link, 'Select').count
-	  puts links_count
-	  link_number = links_count[rand(links_count)] + 1
-	  find(:xpath, "(.//a[contains(text(), 'Select')])[" + link_number.to_s + "]").click
+	  links_count = page.all(:link, 'Select', :visible => true).count
+	  link_number = rand(links_count) + 1
+	  page.all(:link, 'Select', :visible => true)[link_number].click
+	  puts "We have #{links_count} SELECT links. And I clicked on #{link_number} link"
 	end
 
 end

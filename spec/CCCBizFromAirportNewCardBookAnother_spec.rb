@@ -30,8 +30,6 @@ describe "CCCBizFromAirportNewCardBookAnother" do
 
     @checkout_page.fill_cc
     @checkout_page.reserve_car
-    
-    @checkout_page.reserve_car
     @reservation_confirmation_page.verify_reservation_passed
 
     find_link('Back to homepage').click

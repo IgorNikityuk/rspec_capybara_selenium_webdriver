@@ -65,7 +65,7 @@ class CheckoutPage < GenericSearch
   def enter_promo_code
     fill_in 'entered_promo_code', :with => 'MTSINAI10'
     find('#promo_code_button').click
-    find('.infoMessage').text.should == "$30 discount applied"
+    find('.infoMessage').text.should == "30% discount applied"
     #page.should_not have_css("tr.promo_code_discount > td.left")
   end
 

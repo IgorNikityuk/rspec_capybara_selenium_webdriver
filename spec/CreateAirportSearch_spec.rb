@@ -3,8 +3,7 @@ require 'spec_helper'
 describe "CreateAirportSearch" do
   it "CreateAirportSearch", :js => true do
     
-    current_page = SearchPage.new
-    current_page.open_logout
+    @search_page.open_logout
 
     select('To Airport', :from => 'service_type')
     select('2', :from => 'search_pax')

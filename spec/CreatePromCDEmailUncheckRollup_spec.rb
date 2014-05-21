@@ -2,13 +2,12 @@ require 'spec_helper'
 
 describe "CreatePromCDEmailUncheckRollup" do
   it "CreatePromCDEmailUncheckRollup", :js => true do
-    current_page = SearchPage.new
-    current_page.open_logout
+    
+    @search_page.open_logout
 
     select('Prom / School Event', :from => 'service_type')
     select('8', :from => 'search_pax')
-    search = GenericSearch.new
-    search.click_next_date
+    @search.click_next_date
     select('11 PM', :from => 'search_pickup_time_hour')
     select(':15', :from => 'search_pickup_time_minute')
     select('6 AM', :from => 'search_drop_off_time_hour')
@@ -24,12 +23,9 @@ describe "CreatePromCDEmailUncheckRollup" do
     page.should_not have_xpath("//span[@class='operator-phone']")
     page.should_not have_xpath("//span[@class='operator-email']")
     
-    current_page = SearchResultPage.new
-    current_page.wait_for_page_load
-    current_page.select_car
+    @search_result_page.wait_for_page_load
+    @search_result_page.select_car
 
-    current_page = CheckoutPage.new
-    
     select('selenium prom', :from => 'passenger_list')
     find('#reservation_request_dropoff_same_as_pickup').click
     fill_in 'dropoff_address_street1', :with => '14 state st'
@@ -56,10 +52,9 @@ describe "CreatePromCDEmailUncheckRollup" do
     fill_in 'passenger_phone_num', :with => '123-233-4324'
     find('#reservation_request_submit').click
     
-    current_page.reserve_car
-
-    current_page = ReservationConfirmationPage.new
-
+    @checkout_page.reserve_car
+    
+    page.should have_text('Reservation Request')
     page.should have_text('igor.nikityuk@gmail.com')
     page.should have_text('from 11:15PM to 06:45AM (7.5 hours) for 8 people')
     page.should_not have_xpath('//div[1]/a/span')

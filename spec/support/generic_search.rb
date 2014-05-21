@@ -3,6 +3,10 @@ require 'spec_helper'
 class GenericSearch
   include Capybara::DSL
 
+  def open_logout
+    visit Capybara.default_host + '/logout'
+  end
+
   def wait_for_ajax
     Timeout.timeout(Capybara.default_wait_time) do
       loop do

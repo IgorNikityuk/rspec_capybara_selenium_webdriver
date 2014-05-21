@@ -5,13 +5,11 @@ require 'spec_helper'
 describe "Contact-infoPage" do
   it "Contact-infoPage", :js => true do
     
-    current_page = SearchPage.new
-    current_page.open_logout
+    @search_page.open_logout
 
     select('Wedding', :from => 'service_type')
     select('4', :from => 'search_pax')
-    find('#search_ride_date').click
-    find('#calcurrent').click
+    @search.click_next_date
     select('11 PM', :from => 'search_pickup_time_hour')
     select(':15', :from => 'search_pickup_time_minute')
     fill_in 'search_pickup_place', :with => '1070 SAN FRANCISCO, Union Street, San Francisco, CA, United States'
@@ -36,9 +34,8 @@ describe "Contact-infoPage" do
     fill_in 'passenger_email', :with => 'igor.nikityuk@gmail.com'
     find('#user_passenger_info_submit').click
     
-    current_page = SearchResultPage.new
-    current_page.wait_for_page_load
-    current_page.select_car
+    @search_result_page.wait_for_page_load
+    @search_result_page.select_car
 
     page.should have_css('h2')
   end

@@ -21,6 +21,15 @@ RSpec.configure do |config|
   config.include Capybara::DSL
   config.before(:all) do
     DeferredGarbageCollection.start
+    @search_page                     = SearchPage.new
+	  @login_page                      = LoginPage.new
+	  @admin_page                      = AdminPage.new
+	  @admin_make_reservation_page     = AdminMakeReservationPage.new
+	  @search_result_page              = SearchResultPage.new
+	  @checkout_page                   = CheckoutPage.new
+	  @reservation_confirmation_page   = ReservationConfirmationPage.new
+	  @search                          = GenericSearch.new
+
   end
 
   config.after(:all) do
@@ -29,5 +38,5 @@ RSpec.configure do |config|
 end
 
 Capybara.default_driver = :selenium
-Capybara.default_host = 'http://ff2.staging.limos.com/'
+Capybara.default_host = 'http://staging.limos.com/'
 Capybara.default_wait_time = 30

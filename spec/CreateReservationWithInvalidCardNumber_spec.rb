@@ -4,24 +4,18 @@ describe 'CreateReservationWithInvalidCardNumber' do
   it 'CreateReservationWithInvalidCardNumber', :js => true do
   	
     @search_page.open_logout
-
-  	select('From Airport', :from => 'service_type')
-    select('3', :from => 'search_pax')
-    @search.click_next_date
-    select('11 PM', :from => 'search_pickup_time_hour')
-    select(':15', :from => 'search_pickup_time_minute')
-    fill_in 'search_pickup_place', :with => 'ZRH'
-    fill_in 'search_drop_off_place', :with => '8001 Zurich, Switzerland'
-    find_button('Get a quote').click
-
+    @search_page.make_search_with({ :service_type         => 'From Airport', 
+                                    :passengers_count     => '3',
+                                    :pick_up_time_hour    => '11 PM',
+                                    :pick_up_time_minute  => ':15',
+                                    :pick_up_place        => 'ZRH',
+                                    :drop_off_place       => '8001 Zurich, Switzerland'})
     @search_result_page.wait_for_page_load
     @search_result_page.select_car
     @checkout_page.fill_passenger_details
-
+    @checkout_page.fill_flight_details({:flight_airline => 'American Airlines', :flight_number => '1190'})
+        
     email = find('#passenger_email').text
-    select 'American Airlines', :from => 'reservation_request_flight_airline'
-    fill_in 'reservation_request_flight_number', :with => '1190'    
-    find('#ride_pricing_number_of_stops').click
     select '1', :from => 'ride_pricing_number_of_stops'
     find('#ride_pricing_meet_inside').click
     fill_in 'reservation_request_special_requests', :with => 'temp@bhasin.com'
@@ -33,12 +27,9 @@ describe 'CreateReservationWithInvalidCardNumber' do
     
     @checkout_page.reserve_car
 
-    page.should have_text('There was an error processing your payment - please try a different card.')
+    find('errorMsgs').text.should == 'There was an error processing your payment - please try a different card.'
   
     @checkout_page.fill_cc
-
-    fill_in 'passenger_phone_num', :with => '503.282.0553'
-
     @checkout_page.reserve_car
     @reservation_confirmation_page.verify_reservation_passed
 

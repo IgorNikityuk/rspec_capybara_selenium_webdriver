@@ -6,7 +6,6 @@ class ReservationConfirmationPage < GenericSearch
 
   def verify_reservation_passed
   	first('h2').text.should == 'Reservation Confirmation'
-  	find('#self_service_cancel_button').text.should == 'Cancel'
   end
 
 end

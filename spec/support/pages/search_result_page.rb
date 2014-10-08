@@ -5,10 +5,12 @@ class SearchResultPage < GenericSearch
   include Capybara::DSL	
 
   	def wait_for_page_load
-  	  find('.sortby-price').text.should == 'Price'  			
+	  #(find('.sortby-price').text.should == 'Price')
+  	  #sleep 3
   	end
 
 	def select_car
+	  first(:xpath, '(.//div[4])[7]')
 	  links_count = page.all(:link, 'Select', :visible => true).count
 	  link_number = rand(links_count) + 1
 	  page.all(:link, 'Select', :visible => true)[link_number].click

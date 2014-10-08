@@ -69,4 +69,32 @@ class CheckoutPage < GenericSearch
     #page.should_not have_css("tr.promo_code_discount > td.left")
   end
 
+  def fill_flight_details (container={})
+    fields = {:flight_airline => 'reservation_request_flight_airline', 
+              :flight_number  => 'reservation_request_flight_number'}
+
+    default_options = {
+      :flight_airline => "American Airlines",
+      :flight_number  => "2457"
+    }
+
+    container = default_options.merge(container)
+
+    container.each { |key, value|
+      #verify field present
+      if fields.has_key? key
+        #TODO for dropdowns fields
+        if key == :flight_airline
+          select value, :from => fields[key] 
+        #TODO for text fields
+        else
+          fill_in fields[key], :with => value
+        end
+      #throw message if field doesn't consist on the page
+      else
+        puts 'Page not consist ' + fields[key] + ' field'
+      end
+    }
+  end
+
 end

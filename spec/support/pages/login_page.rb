@@ -6,7 +6,7 @@ class LoginPage < GenericSearch
   include RSpec::Matchers
 
 	def should_have_sign_in_link
-		page.has_link?("Sign In").should be_true
+		page.should have_link "Sign In"
 	end
 
 end

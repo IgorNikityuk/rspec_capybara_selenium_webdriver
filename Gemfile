@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
 gem 'rspec'
 gem 'capybara'
-gem 'selenium-webdriver', '~> 2.39.0'
+gem 'selenium-webdriver'
 gem 'pry'

@@ -3,13 +3,10 @@ require 'support/generic_search.rb'
 
 class LoginPage < GenericSearch
   include Capybara::DSL
+  include RSpec::Matchers
 
-  #function for login on site
-	def sign_in_as (email, password)
-      find_link('Sign In').click
-      fill_in 'email', :with => email
-      fill_in 'password', :with => password
-      find_button('Sign-in').click
+	def should_have_sign_in_link
+		page.has_link?("Sign In").should be_true
 	end
 
 end
